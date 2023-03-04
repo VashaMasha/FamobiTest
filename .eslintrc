@@ -1,0 +1,36 @@
+{
+  "extends": ["airbnb"],
+  "plugins": ["@typescript-eslint", "react", "react-native", "jest"],
+  "parser": "@typescript-eslint/parser",
+  "rules": {
+    "import/no-unresolved": 0,
+    "react/jsx-filename-extension": [1, {
+      "extensions": [
+        ".jsx",
+        ".tsx",
+        ".ts"
+      ]
+    }],
+    "react/no-children-prop": 0,
+    "react-native/no-unused-styles": 2,
+    "react-native/no-inline-styles": 2,
+    "react-native/no-color-literals": 2,
+    "no-use-before-define": "off",
+    "import/extensions": "off",
+    "linebreak-style": 0,
+    "quotes": ["error", "single"],
+    "no-else-return": ["error", {"allowElseIf": true}],
+    "consistent-return": "off",
+    "camelcase": "off",
+    "max-len": ["error", { "code": 180, "tabWidth": 2 }],
+    "no-unused-expressions": "off",
+    "react/require-default-props": ["error", { "ignoreFunctionalComponents": true }],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.tsx", "**/*.spec.tsx"]}]
+  },
+  "env": {
+    "react-native/react-native": true,
+    "jest/globals": true
+  }
+}
