@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import {
-  View, StyleSheet, Text, ActivityIndicator, Pressable,
+  View, StyleSheet, Text, ActivityIndicator, Pressable, Image, FlatList,
 } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
-import api from '../api';
-import { Game } from '../types/Game';
+import { Game } from '../../types/Game';
+import GameComponent from './components/GameComponent';
+import COLORS from '../../assets/colors';
+import api from '../../api';
 
 const HomeScreen = ({ route } : any) => {
   const { platform, category, sortBy } = route.params || {};
   const [isFetching, setIsFetching] = useState(true);
   const [games, setGames] = useState<Game[]>([]);
-
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const HomeScreen = ({ route } : any) => {
       .then((res: any) => {
         setGames(res);
       })
-      .catch((err) => console.warn('err', err))
+      .catch((err: any) => console.warn('err', err))
       .finally(() => setIsFetching(false));
   }, [platform, category, sortBy]);
 
@@ -32,7 +32,9 @@ const HomeScreen = ({ route } : any) => {
           onPress={() => navigation.navigate('Filters')}
           style={styles.filtersButton}
           disabled={isFetching}
-        />
+        >
+          <Image source={require('../../assets/icons/filter.png')} style={styles.filterIcon} />
+        </Pressable>
       </View>
       {isFetching && (
       <ActivityIndicator
@@ -40,11 +42,13 @@ const HomeScreen = ({ route } : any) => {
         style={styles.activityIndicator}
       />
       )}
-      <ScrollView>
-        {games.length > 0 && !isFetching && games.map((game) => (
-          <Text>{game.title}</Text>
-        ))}
-      </ScrollView>
+      {!isFetching && (
+        <FlatList
+          style={styles.listContent}
+          data={games}
+          renderItem={({ item }) => <GameComponent game={item} />}
+        />
+      )}
     </View>
   );
 };
@@ -53,10 +57,15 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: 'white',
+    backgroundColor: COLORS.WHITE,
+  },
+  listContent: {
+    paddingHorizontal: 10,
+    marginTop: 40,
   },
   headerContainer: {
     width: '100%',
+    position: 'absolute',
     top: 0,
     height: 40,
     flexDirection: 'row',
@@ -69,9 +78,6 @@ const styles = StyleSheet.create({
   filtersButton: {
     position: 'absolute',
     right: 10,
-    height: 24,
-    width: 24,
-    backgroundColor: 'black',
   },
   activityIndicator: {
     position: 'absolute',
@@ -79,6 +85,10 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     left: 0,
+  },
+  filterIcon: {
+    width: 24,
+    height: 24,
   },
 });
 

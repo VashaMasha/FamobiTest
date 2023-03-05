@@ -1,18 +1,13 @@
 import React, { useState } from 'react';
 import {
-  View, StyleSheet, Text, Pressable, ScrollView,
+  View, StyleSheet, Text, Pressable, ScrollView, Image,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import SelectDropdown from 'react-native-select-dropdown';
+import FilterType from '../enums/FilterType';
+import COLORS from '../assets/colors';
+import { SORTING_BY, CATEGORIES, PLATFORMS } from '../constants/filters';
 
-enum FilterType {
-  Platform = 'PLATFORM:',
-  Category = 'CATEGORY:',
-  SortBy = 'SORT BY:',
-}
-const PLATFORMS = ['browser', 'pc'];
-const CATEGORIES = ['mmorpg', 'shooter', 'strategy', 'moba', 'racing', 'sports', 'social', 'sandbox', 'open-world', 'survival', 'pvp', 'pve', 'pixel', 'voxel', 'zombie', 'turn-based', 'first-person', 'third-Person', 'top-down', 'tank', 'space', 'sailing', 'side-scroller', 'superhero', 'permadeath', 'card', 'battle-royale', 'mmo', 'mmofps', 'mmotps', '3d', '2d', 'anime', 'fantasy', 'sci-fi', 'fighting', 'action-rpg', 'action', 'military', 'martial-arts', 'flight', 'low-spec', 'tower-defense', 'horror', 'mmorts'];
-const SORTING_BY = ['release-date', 'popularity', 'alphabetical', 'relevance'];
 const FiltersScreen = () => {
   const navigation = useNavigation();
 
@@ -31,7 +26,9 @@ const FiltersScreen = () => {
         <Pressable
           onPress={() => navigation.goBack()}
           style={styles.backButton}
-        />
+        >
+          <Image source={require('../assets/icons/angle-left.png')} style={styles.backIcon} />
+        </Pressable>
       </View>
       <ScrollView>
         <SelectDropdown
@@ -42,6 +39,7 @@ const FiltersScreen = () => {
           defaultButtonText={FilterType.SortBy}
           defaultValue={FilterType.SortBy}
           buttonStyle={styles.sortingButton}
+          dropdownStyle={styles.dropdownStyle}
         />
         <SelectDropdown
           data={PLATFORMS}
@@ -51,6 +49,7 @@ const FiltersScreen = () => {
           defaultButtonText={FilterType.Platform}
           defaultValue={FilterType.Platform}
           buttonStyle={styles.sortingButton}
+          dropdownStyle={styles.dropdownStyle}
         />
         <SelectDropdown
           data={CATEGORIES}
@@ -60,6 +59,7 @@ const FiltersScreen = () => {
           defaultButtonText={FilterType.Category}
           defaultValue={FilterType.Category}
           buttonStyle={styles.sortingButton}
+          dropdownStyle={styles.dropdownStyle}
         />
         <Pressable
           onPress={() => onSubmit()}
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: 'white',
+    backgroundColor: COLORS.WHITE,
   },
   headerContainer: {
     width: '100%',
@@ -94,7 +94,6 @@ const styles = StyleSheet.create({
     left: 10,
     height: 24,
     width: 24,
-    backgroundColor: 'black',
   },
   sortingButton: {
     width: 250,
@@ -102,7 +101,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
     borderRadius: 20,
     borderWidth: 1,
-    backgroundColor: 'white',
+    backgroundColor: COLORS.WHITE,
   },
   submitButton: {
     alignSelf: 'center',
@@ -112,10 +111,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     marginTop: 40,
     marginRight: 10,
-    backgroundColor: 'black',
+    backgroundColor: COLORS.BLACK,
   },
   submitButtonText: {
-    color: 'white',
+    color: COLORS.WHITE,
+  },
+  backIcon: {
+    width: 24,
+    height: 24,
+  },
+  dropdownStyle: {
+    borderRadius: 20,
+    backgroundColor: COLORS.WHITE,
   },
 });
 
