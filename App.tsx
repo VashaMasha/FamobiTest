@@ -3,24 +3,30 @@ import {
   SafeAreaView,
   StatusBar,
   useColorScheme,
+  StyleSheet,
 } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import MainStackNavigator from './src/router/MainStackNavigator';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <SafeAreaView style={styles.content}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
       />
+      <NavigationContainer>
+        <MainStackNavigator />
+      </NavigationContainer>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  content: {
+    ...StyleSheet.absoluteFillObject,
+  },
+});
 
 export default App;
