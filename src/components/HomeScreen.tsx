@@ -7,17 +7,22 @@ import { useNavigation } from '@react-navigation/native';
 import api from '../api';
 import { Game } from '../types/Game';
 
-const HomeScreen = () => {
+const HomeScreen = ({ route } : any) => {
+  const { platform, category, sortBy } = route.params || {};
   const [isFetching, setIsFetching] = useState(true);
   const [games, setGames] = useState<Game[]>([]);
+
   const navigation = useNavigation();
 
   useEffect(() => {
-    api.games.getGames()
-      .then((res: any) => setGames(res))
+    setIsFetching(true);
+    api.games.getGames(platform, category, sortBy)
+      .then((res: any) => {
+        setGames(res);
+      })
       .catch((err) => console.warn('err', err))
       .finally(() => setIsFetching(false));
-  }, []);
+  }, [platform, category, sortBy]);
 
   return (
     <View style={styles.content}>
