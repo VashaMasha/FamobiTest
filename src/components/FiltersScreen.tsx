@@ -23,7 +23,7 @@ const FiltersScreen = ({ route } : any) => {
     setPlatform(null);
     setCategory(null);
     setSortBy(null);
-    navigation.navigate('Home', { platform, category, sortBy });
+    navigation.navigate('Home', { platform: null, category: null, sortBy: null });
   };
 
   return (
