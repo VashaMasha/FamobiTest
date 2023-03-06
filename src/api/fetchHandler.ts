@@ -1,8 +1,10 @@
 const fetchHandler = async (url: string) => new Promise((resolve, reject) => {
   fetch(url)
     .then(async (response) => {
+      if (response.status === 200) {
       const res = parseResponse(response);
       resolve(res);
+      } else (reject('Something went wrong'));
     })
     .catch((err) => {
       reject(err);
