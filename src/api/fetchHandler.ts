@@ -7,7 +7,8 @@ const fetchHandler = async (url: string) => new Promise((resolve, reject) => {
       } else (reject('Something went wrong'));
     })
     .catch((err) => {
-      reject(err);
+      console.warn('err', err);
+      reject('Something went wrong');
     });
 });
 

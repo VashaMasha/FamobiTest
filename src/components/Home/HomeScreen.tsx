@@ -73,7 +73,7 @@ const HomeScreen = ({ route } : any) => {
             <Text style={[styles.text, styles.errorText]}>{error}</Text>
             <Pressable
               onPress={() => onRefetch()}
-              style={styles.brefetchButton}
+                style={styles.refetchButton}
             >
               <Text style={styles.text}>TRY AGAIN</Text>
             </Pressable>
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
   },
-  brefetchButton: {
+  refetchButton: {
     alignSelf: 'center',
     borderRadius: 20,
     borderWidth: 1,
