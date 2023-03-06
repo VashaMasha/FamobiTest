@@ -40,6 +40,11 @@ const GameComponent = ({ game } : GameComponentProps) => (
       {' '}
       {game.publisher}
     </Text>
+    <Text>
+      Release Date:
+      {' '}
+      {(new Date(game.release_date)).toLocaleDateString()}
+    </Text>
     <View style={styles.buttonsContainer}>
       <Pressable
         style={styles.button}
