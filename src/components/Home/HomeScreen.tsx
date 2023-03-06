@@ -29,7 +29,7 @@ const HomeScreen = ({ route } : any) => {
       <View style={styles.headerContainer}>
         <Text style={styles.headerText}>APPS</Text>
         <Pressable
-          onPress={() => navigation.navigate('Filters')}
+          onPress={() => navigation.navigate('Filters', { platform, category, sortBy })}
           style={styles.filtersButton}
           disabled={isFetching}
         >

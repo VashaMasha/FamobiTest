@@ -8,14 +8,21 @@ import FilterType from '../enums/FilterType';
 import COLORS from '../assets/colors';
 import { SORTING_BY, CATEGORIES, PLATFORMS } from '../constants/filters';
 
-const FiltersScreen = () => {
+const FiltersScreen = ({ route } : any) => {
   const navigation = useNavigation();
-
-  const [platform, setPlatform] = useState<string | null>(null);
-  const [category, setCategory] = useState<string | null>(null);
-  const [sortBy, setSortBy] = useState<string | null>(null);
+  const params = route.params || {};
+  const [platform, setPlatform] = useState<string | null>(params.platform);
+  const [category, setCategory] = useState<string | null>(params.category);
+  const [sortBy, setSortBy] = useState<string | null>(params.sortBy);
 
   const onSubmit = () => {
+    navigation.navigate('Home', { platform, category, sortBy });
+  };
+
+  const onReset = () => {
+    setPlatform(null);
+    setCategory(null);
+    setSortBy(null);
     navigation.navigate('Home', { platform, category, sortBy });
   };
 
@@ -37,7 +44,7 @@ const FiltersScreen = () => {
           buttonTextAfterSelection={(selectedItem) => selectedItem}
           rowTextForSelection={(item) => item}
           defaultButtonText={FilterType.SortBy}
-          defaultValue={FilterType.SortBy}
+          defaultValue={sortBy || FilterType.SortBy}
           buttonStyle={styles.sortingButton}
           dropdownStyle={styles.dropdownStyle}
         />
@@ -47,7 +54,7 @@ const FiltersScreen = () => {
           buttonTextAfterSelection={(value) => value}
           rowTextForSelection={(value) => value}
           defaultButtonText={FilterType.Platform}
-          defaultValue={FilterType.Platform}
+          defaultValue={platform || FilterType.Platform}
           buttonStyle={styles.sortingButton}
           dropdownStyle={styles.dropdownStyle}
         />
@@ -57,15 +64,21 @@ const FiltersScreen = () => {
           buttonTextAfterSelection={(value) => value}
           rowTextForSelection={(value) => value}
           defaultButtonText={FilterType.Category}
-          defaultValue={FilterType.Category}
+          defaultValue={category || FilterType.Category}
           buttonStyle={styles.sortingButton}
           dropdownStyle={styles.dropdownStyle}
         />
         <Pressable
           onPress={() => onSubmit()}
-          style={styles.submitButton}
+          style={[styles.button, styles.submitButton]}
         >
           <Text style={styles.submitButtonText}>SUBMIT</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => onReset()}
+          style={styles.button}
+        >
+          <Text>RESET</Text>
         </Pressable>
       </ScrollView>
     </View>
@@ -103,7 +116,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: COLORS.WHITE,
   },
-  submitButton: {
+  button: {
     alignSelf: 'center',
     borderRadius: 20,
     borderWidth: 1,
@@ -111,6 +124,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     marginTop: 40,
     marginRight: 10,
+  },
+  submitButton: {
     backgroundColor: COLORS.BLACK,
   },
   submitButtonText: {
