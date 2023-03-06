@@ -32,7 +32,6 @@ const HomeScreen = ({ route } : any) => {
       })
       .catch((err: any) => {
         setError(err);
-        console.warn('err', err);
       })
       .finally(() => setIsFetching(false));
   };
