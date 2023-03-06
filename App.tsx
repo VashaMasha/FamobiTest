@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import MainStackNavigator from './src/router/MainStackNavigator';
+import COLORS from './src/assets/colors';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -15,6 +16,7 @@ function App() {
     <SafeAreaView style={styles.content}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        backgroundColor={isDarkMode ? COLORS.BLACK : COLORS.WHITE}
       />
       <NavigationContainer>
         <MainStackNavigator />
@@ -28,5 +30,4 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
 });
-
 export default App;

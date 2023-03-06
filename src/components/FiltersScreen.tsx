@@ -29,7 +29,7 @@ const FiltersScreen = ({ route } : any) => {
   return (
     <View style={styles.content}>
       <View style={styles.headerContainer}>
-        <Text style={styles.headerText}>FILTERS</Text>
+        <Text style={[styles.text, styles.headerText]}>FILTERS</Text>
         <Pressable
           onPress={() => navigation.goBack()}
           style={styles.backButton}
@@ -78,7 +78,7 @@ const FiltersScreen = ({ route } : any) => {
           onPress={() => onReset()}
           style={styles.button}
         >
-          <Text>RESET</Text>
+          <Text style={styles.text}>RESET</Text>
         </Pressable>
       </ScrollView>
     </View>
@@ -138,6 +138,9 @@ const styles = StyleSheet.create({
   dropdownStyle: {
     borderRadius: 20,
     backgroundColor: COLORS.WHITE,
+  },
+  text: {
+    color: COLORS.BLACK,
   },
 });
 

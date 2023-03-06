@@ -37,53 +37,51 @@ const HomeScreen = ({ route } : any) => {
       .finally(() => setIsFetching(false));
   };
   return (
-    <>
-
-      <View style={styles.content}>
-        <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>APPS</Text>
-          <Pressable
-            onPress={() => navigation.navigate('Filters', { platform, category, sortBy })}
-            style={styles.filtersButton}
-            disabled={isFetching}
-          >
-            <Image source={require('../../assets/icons/filter.png')} style={styles.filterIcon} />
-          </Pressable>
-        </View>
-        {isFetching && (
+    <View style={styles.content}>
+      <View style={styles.headerContainer}>
+        <Text style={[styles.text, styles.headerText]}>APPS</Text>
+        <Pressable
+          onPress={() => navigation.navigate('Filters', { platform, category, sortBy })}
+          style={styles.filtersButton}
+          disabled={isFetching}
+        >
+          <Image source={require('../../assets/icons/filter.png')} style={styles.filterIcon} />
+        </Pressable>
+      </View>
+      {isFetching && (
         <ActivityIndicator
           size="large"
           style={styles.activityIndicator}
+          color={COLORS.BLACK}
         />
-        )}
-        {!isFetching && (
-          <FlatList
-            style={styles.listContent}
-            data={games}
-            renderItem={({ item }) => <GameComponent game={item} />}
-          />
-        )}
-        {error && (
-          <Modal
-            transparent
-            visible
-            onRequestClose={() => setError(null)}
-          >
-            <View style={styles.modalContainer}>
-              <View style={styles.modalCard}>
-                <Text style={styles.errorText}>{error}</Text>
-                <Pressable
-                  onPress={() => onRefetch()}
-                  style={styles.brefetchButton}
-                >
-                  <Text>TRY AGAIN</Text>
-                </Pressable>
-              </View>
-            </View>
-          </Modal>
-        )}
-      </View>
-    </>
+      )}
+      {!isFetching && (
+      <FlatList
+        style={styles.listContent}
+        data={games}
+        renderItem={({ item }) => <GameComponent game={item} />}
+      />
+      )}
+      {error && (
+      <Modal
+        transparent
+        visible
+        onRequestClose={() => setError(null)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalCard}>
+            <Text style={[styles.text, styles.errorText]}>{error}</Text>
+            <Pressable
+              onPress={() => onRefetch()}
+              style={styles.brefetchButton}
+            >
+              <Text style={styles.text}>TRY AGAIN</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+      )}
+    </View>
   );
 };
 
@@ -150,6 +148,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     marginTop: 40,
     marginRight: 10,
+  },
+  text: {
+    color: COLORS.BLACK,
   },
 });
 
